@@ -3,6 +3,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
+import { Menu } from "lucide-react";
 import { MobileMenu } from "@/components/ui/mobile-menu";
 
 export function Navbar() {
@@ -39,19 +40,13 @@ export function Navbar() {
           </Link>
         </div>
 
-        {/* Botão Menu Mobile (invert deixa o ícone menu.svg totalmente branco) */}
+        {/* Botão Menu Mobile usando ícone do Lucide */}
         <button
           onClick={() => setIsMenuOpen(true)}
-          className="p-1 md:hidden"
+          className="p-1 text-white transition-colors hover:text-amber-400 md:hidden"
           aria-label="Abrir Menu"
         >
-          <Image
-            src="/icons/menu.svg"
-            alt="Ícone do Menu"
-            width={32}
-            height={32}
-            className="h-8 w-8 brightness-0 invert"
-          />
+          <Menu size={36} />
         </button>
       </nav>
 
