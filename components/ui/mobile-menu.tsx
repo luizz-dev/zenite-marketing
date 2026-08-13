@@ -1,5 +1,6 @@
 "use client";
 
+import { useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { Home, BookOpen, Briefcase, Mail } from "lucide-react";
@@ -11,13 +12,25 @@ interface MobileMenuProps {
 }
 
 export function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
+  // Trava a rolagem da página quando o menu estiver aberto
+  useEffect(() => {
+    if (isOpen) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "unset";
+    }
+    return () => {
+      document.body.style.overflow = "unset";
+    };
+  }, [isOpen]);
+
   return (
     <div
       className={`fixed inset-0 z-50 flex md:hidden transition-all duration-300 ${
         isOpen ? "pointer-events-auto opacity-100" : "pointer-events-none opacity-0"
       }`}
     >
-      {/* Overlay escuro (PARTE PRETA): Clicar aqui é a ÚNICA forma de fechar o menu fora os links */}
+      {/* Overlay escuro: Fechamento ao clicar fora */}
       <div
         className={`fixed inset-0 bg-black/60 backdrop-blur-[2.5px] transition-opacity duration-300 ${
           isOpen ? "opacity-100" : "opacity-0"
@@ -25,12 +38,10 @@ export function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
         onClick={onClose}
       />
 
-      {/* Drawer Lateral: stopPropagation impede que cliques aqui dentro fechem o menu */}
+      {/* Drawer Lateral */}
       <div
-        //faz com que o clique no menu não feche o menu, apenas o clique no overlay
         onClick={(e) => e.stopPropagation()}
-
-        className={`relative z-10 flex h-full w-[65%] min-w-[240px] max-w-[290px] flex-col bg-[#1B263B] py-8 shadow-2xl transition-transform duration-300 ease-in-out ${
+        className={`relative z-10 flex h-full w-[55%] min-w-[240px] max-w-[290px] flex-col bg-[#1B263B] py-8 shadow-2xl transition-transform duration-300 ease-in-out ${
           isOpen ? "translate-x-0" : "-translate-x-full"
         }`}
       >
@@ -55,7 +66,7 @@ export function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
             <Link
               href="/"
               onClick={onClose}
-              className="flex w-full items-center gap-4 rounded-lg p-2.5 text-xl font-medium text-slate-100 transition-colors hover:bg-slate-800/40 hover:text-amber-400"
+              className="flex w-full items-center gap-4 rounded-lg p-2.5 text-xl font-medium text-slate-100 transition-colors hover:bg-slate-800/40 hover:text-[#F57C00]"
             >
               <Home size={32} className="shrink-0" />
               <span>Home</span>
@@ -64,7 +75,7 @@ export function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
             <Link
               href="/sobre"
               onClick={onClose}
-              className="flex w-full items-center gap-4 rounded-lg p-2.5 text-xl font-medium text-slate-100 transition-colors hover:bg-slate-800/40 hover:text-amber-400"
+              className="flex w-full items-center gap-4 rounded-lg p-2.5 text-xl font-medium text-slate-100 transition-colors hover:bg-slate-800/40 hover:text-[#F57C00]"
             >
               <BookOpen size={33} className="shrink-0" />
               <span>Sobre</span>
@@ -73,7 +84,7 @@ export function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
             <Link
               href="/servicos"
               onClick={onClose}
-              className="flex w-full items-center gap-4 rounded-lg p-2.5 text-xl font-medium text-slate-100 transition-colors hover:text-amber-400"
+              className="flex w-full items-center gap-4 rounded-lg p-2.5 text-xl font-medium text-slate-100 transition-colors hover:bg-slate-800/40 hover:text-[#F57C00]"
             >
               <Briefcase size={32} className="shrink-0" />
               <span>Serviços</span>
@@ -82,7 +93,7 @@ export function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
             <Link
               href="/contato"
               onClick={onClose}
-              className="flex w-full items-center gap-4 rounded-lg p-2.5 text-xl font-medium text-slate-100 transition-colors hover:bg-slate-800/40 hover:text-amber-400"
+              className="flex w-full items-center gap-4 rounded-lg p-2.5 text-xl font-medium text-slate-100 transition-colors hover:bg-slate-800/40 hover:text-[#F57C00]"
             >
               <Mail size={32} className="shrink-0" />
               <span>Contato</span>
