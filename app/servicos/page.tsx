@@ -1,12 +1,11 @@
 import type { Metadata } from "next";
+import ServicosContent from "./servicos-content";
 
 export const metadata: Metadata = {
-  title: " Serviços",
-  description: "Conheça a história e equipe do Zênite",
+  title: "Serviços",
+  description: "Conheça os serviços e soluções oferecidos pelo Zênite",
 };
 
-export default function SobrePage() {
-  return (
-    <main>Serviços</main>
-  );
+export default function ServicosPage() {
+  return <ServicosContent />;
 }

@@ -4,7 +4,7 @@ import { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { Menu } from "lucide-react";
-import { MobileMenu } from "@/components/ui/mobile-menu";
+import { MobileMenu } from "@/components/mobile-menu";
 
 export function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);

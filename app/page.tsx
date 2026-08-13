@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
-import { ServicesCarousel } from "@/components/services-carousel";
-import { Button } from "@/components/ui/Button";
+import { ServicesCarousel } from "@/components/Home/services-carousel";
+import { Button } from "@/components/Home/Button";
 import { User } from "lucide-react";
 
 const testimonials = [
