@@ -4,7 +4,7 @@ import { useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { Home, BookOpen, Briefcase, Mail } from "lucide-react";
-import { DividerLines } from "@/components/ui/divider-lines";
+import { DividerLines } from "@/components/divider-lines";
 
 interface MobileMenuProps {
   isOpen: boolean;

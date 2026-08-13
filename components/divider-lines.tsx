@@ -1,3 +1,5 @@
+//refetente ao menu mobile, apenas as linhas divisórias entre o logo e os links do menu
+
 export function DividerLines() {
   return (
     <div className="flex flex-col gap-1 py-[20%]">
