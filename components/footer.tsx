@@ -3,7 +3,7 @@ import Image from "next/image";
 
 export function Footer() {
   return (
-    <footer className="w-full rounded-t-[32px] bg-[#1B263B] px-8 py-6 text-white">
+    <footer className="w-full rounded-t-[32px] bg-[#193160] px-8 py-6 text-white">
       <div className="mx-auto flex max-w-5xl items-center justify-between">
         <span className="text-lg font-medium tracking-wide">
           Redes sociais
