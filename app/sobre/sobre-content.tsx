@@ -3,7 +3,7 @@
 import { useState } from "react";
 import Image from "next/image";
 import { ChevronDown } from "lucide-react";
-import AnimatedParticles from "@/components/Sobre/AnimatedParticles";
+import AnimatedParticles from "@/components/AnimatedParticles";
 import TeamCarousel from "@/components/Sobre/TeamCarousel";
 import FaqSection from "@/components/Sobre/FaqSection";
 
@@ -18,7 +18,7 @@ export default function SobreContent() {
     <main className="w-full min-h-screen bg-[#0F0C29] text-white overflow-x-hidden relative">
       {/* SEÇÃO HERO: Sobre Nós */}
       <section className="relative flex flex-col gap-6 px-6 pt-10 pb-2 max-w-md mx-auto overflow-hidden">
-        <AnimatedParticles count={38} />
+        <AnimatedParticles count={88} />
       <div className="relative z-10 flex flex-col gap-1">
         <div className="flex items-center gap-2">
           <span className="h-1 w-1 rounded-full bg-[#F57C00]" />
@@ -69,7 +69,7 @@ export default function SobreContent() {
 
       {/* SEÇÃO DESENVOLVEDORES */}
       <section className="relative flex flex-col gap-6 px-6 pt-8 pb-10  bg-gradient-to-t from-[#170D4A] to-[#0F0C29] overflow-hidden">
-        <AnimatedParticles count={40} />
+        <AnimatedParticles count={88} />
         <div className="relative z-10 flex flex-col gap-1 max-w-md mx-auto w-full">
           <div className="flex items-center gap-2">
             <span className="h-1 w-3 rounded-full bg-[#F57C00]" />
