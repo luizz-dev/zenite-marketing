@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { Navbar } from "@/components/navBar";
-import { Footer } from "@/components/footer";
+import { ConditionalFooter } from "@/components/conditional-footer";
 import "./globals.css";
 import { Rajdhani, Barlow, Inter } from "next/font/google";
 
@@ -37,13 +37,11 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="pt-br" className="h-full antialiased">
-
-      <body className={`${rajdhani.variable} ${barlow.variable} ${barlow.variable} flex min-h-full w-[100vw] flex-col bg-black text-white`}>
+      <body className={`${rajdhani.variable} ${barlow.variable} ${inter.variable} flex min-h-full w-[100vw] flex-col bg-black text-white`}>
         <Navbar />
         {children}
-        <Footer />
+        <ConditionalFooter />
       </body>
-
     </html>
   );
 }
