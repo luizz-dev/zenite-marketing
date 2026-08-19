@@ -26,7 +26,7 @@ export function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
 
   return (
     <div
-      className={`fixed inset-0 z-50 flex md:hidden transition-all duration-300 ${
+      className={`fixed inset-0 z-50 flex lg:hidden transition-all duration-300 ${
         isOpen ? "pointer-events-auto opacity-100" : "pointer-events-none opacity-0"
       }`}
     >
