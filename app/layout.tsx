@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Navbar } from "@/components/navBar";
 import { ConditionalFooter } from "@/components/conditional-footer";
+import { SmoothScrollProvider } from "@/components/providers/SmoothScrollProvider";
 import "./globals.css";
 import { Rajdhani, Barlow, Inter } from "next/font/google";
 
@@ -36,11 +37,15 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="pt-br" className="h-full antialiased">
-      <body className={`${rajdhani.variable} ${barlow.variable} ${inter.variable} flex min-h-full w-[100vw] flex-col bg-black text-white`}>
-        <Navbar />
-        {children}
-        <ConditionalFooter />
+    <html lang="pt-br" className="h-full antialiased overflow-x-hidden">
+      <body
+        className={`${rajdhani.variable} ${barlow.variable} ${inter.variable} flex min-h-full w-full flex-col overflow-x-hidden bg-black text-white`}
+      >
+        <SmoothScrollProvider>
+          <Navbar />
+          {children}
+          <ConditionalFooter />
+        </SmoothScrollProvider>
       </body>
     </html>
   );

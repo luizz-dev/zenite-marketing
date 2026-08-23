@@ -2,8 +2,10 @@
 
 import Image from "next/image";
 import { motion } from "framer-motion";
+import { ClipboardList, RefreshCw, Activity } from "lucide-react";
 import { AssinaturaCarousel } from "@/components/Servicos/AssinaturaCarousel";
 import AnimatedParticles from "@/components/AnimatedParticles";
+import { SectionBackdrop } from "@/components/motion/SectionBackdrop";
 
 const features = [
   {
@@ -46,16 +48,19 @@ const steps = [
     n: 1,
     title: "Cadastre seus produtos",
     description: "Organize em categorias, variantes e unidades de medida personalizáveis.",
+    icon: ClipboardList,
   },
   {
     n: 2,
     title: "Registre movimentações",
     description: "Entradas, saídas, transferências e ajustes. Cada operação documentada com rastreabilidade completa.",
+    icon: RefreshCw,
   },
   {
     n: 3,
     title: "Acompanhe em tempo real",
     description: "Veja seu estoque atualizado instantaneamente. Alertas, relatórios e histórico sempre disponíveis.",
+    icon: Activity,
   },
 ];
 
@@ -156,34 +161,52 @@ export default function ServicosPage() {
       {/* ============================================================ */}
       {/* DESKTOP — mesma narrativa e mesmos textos do mobile, animada  */}
       {/* ============================================================ */}
-      <div className="hidden lg:block">
-        {/* Assinaturas */}
-        <section className="pt-16 px-12 text-center">
+      <div className="hidden lg:block relative overflow-hidden bg-[#0A1628]">
+        {/* Assinaturas — hero da página, full-screen com backdrop */}
+        <section className="relative min-h-screen flex flex-col items-center justify-center px-12 text-center overflow-hidden">
+          <SectionBackdrop label="Planos" />
+          <AnimatedParticles count={70} />
+
+          <div
+            className="absolute -top-24 -left-24 w-[420px] h-[420px] rounded-full pointer-events-none"
+            style={{ backgroundColor: "#00BCD4", opacity: 0.12, filter: "blur(120px)" }}
+          />
+          <div
+            className="absolute bottom-0 right-0 w-[380px] h-[380px] rounded-full pointer-events-none"
+            style={{ backgroundColor: "#F57C00", opacity: 0.1, filter: "blur(120px)" }}
+          />
+
           <motion.div
             initial={{ opacity: 0, y: 16 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5 }}
-            className="flex items-center justify-center gap-4 mb-2"
+            className="relative z-10 flex items-center justify-center gap-4 mb-2"
           >
             <div className="h-[3px] w-16 bg-[#F57C00] rounded-full" />
-            <h1 className="text-4xl font-extrabold text-slate-900 tracking-tight">
+            <h1 className="text-4xl font-extrabold text-white tracking-tight">
               Assinaturas
             </h1>
             <div className="h-[3px] w-16 bg-[#F57C00] rounded-full" />
           </motion.div>
 
-          <AssinaturaCarousel />
+          <p className="relative z-10 text-slate-400 mb-8 max-w-md">
+            Escolha o plano certo pro tamanho do seu negócio — sem taxas escondidas.
+          </p>
+
+          <div className="relative z-10 w-full">
+            <AssinaturaCarousel />
+          </div>
         </section>
 
-        {/* Como funciona — passos em linha horizontal */}
-        <section className="my-16 px-12">
+        {/* Como funciona — passos em linha horizontal, com ícones */}
+        <section className="relative px-12 py-24">
           <motion.div
             initial={{ opacity: 0, y: 24 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-10%" }}
             transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
-            className="max-w-6xl mx-auto rounded-3xl bg-[#1B263B] px-12 py-12 text-white shadow-[0_0_20px_rgba(0,0,0,0.35)]"
+            className="max-w-6xl mx-auto rounded-3xl border border-white/10 bg-[#111C34] px-12 py-14 text-white shadow-[0_8px_30px_rgba(0,0,0,0.3)]"
           >
             <span className="text-sm font-semibold text-[#F57C00] underline decoration-[#F57C00] underline-offset-4">
               Como funciona
@@ -193,7 +216,7 @@ export default function ServicosPage() {
               Sua operação na base. Seu controle no Zênite.
             </h2>
 
-            <div className="mt-10 grid grid-cols-3 gap-8">
+            <div className="mt-12 grid grid-cols-3 gap-8">
               {steps.map((step, i) => (
                 <motion.div
                   key={step.n}
@@ -203,11 +226,16 @@ export default function ServicosPage() {
                   transition={{ duration: 0.4, delay: i * 0.12 }}
                   className="flex flex-col gap-3"
                 >
-                  <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-[#F57C00] text-sm font-bold text-white">
-                    {step.n}
-                  </span>
+                  <div className="flex items-center gap-3">
+                    <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-[#F57C00]/15 border border-[#F57C00]/40 text-[#F57C00]">
+                      <step.icon size={20} />
+                    </span>
+                    <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-[#F57C00] text-xs font-bold text-white">
+                      {step.n}
+                    </span>
+                  </div>
                   <h3 className="text-base font-bold">{step.title}</h3>
-                  <p className="text-sm text-slate-300 italic leading-relaxed">
+                  <p className="text-sm text-slate-400 leading-relaxed">
                     {step.description}
                   </p>
                 </motion.div>
@@ -217,7 +245,7 @@ export default function ServicosPage() {
         </section>
 
         {/* Por que escolher a Zênite? — grid 2x2 */}
-        <section className="px-12 mt-10 mb-4">
+        <section className="relative px-12 pb-28">
           <motion.div
             initial={{ opacity: 0, y: 16 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -226,7 +254,7 @@ export default function ServicosPage() {
             className="flex items-center justify-center gap-4 max-w-xl mx-auto mb-12"
           >
             <div className="h-[5px] w-14 bg-[#F57C00] rounded-full" />
-            <h2 className="text-center text-3xl font-bold text-slate-700">
+            <h2 className="text-center text-3xl font-bold text-white">
               Por que escolher a <span className="text-[#F57C00]">Zênite?</span>
             </h2>
             <div className="h-[5px] w-14 bg-[#F57C00] rounded-full" />
@@ -240,8 +268,8 @@ export default function ServicosPage() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: "-10%" }}
                 transition={{ duration: 0.45, delay: idx * 0.1, ease: [0.22, 1, 0.36, 1] }}
-                whileHover={{ y: -6 }}
-                className="relative overflow-hidden rounded-2xl bg-[#1B263B] p-7 text-white border border-white/10 shadow-[0_0_8px_#00000075]"
+                whileHover={{ y: -6, borderColor: "rgba(0,188,212,0.4)" }}
+                className="relative overflow-hidden rounded-2xl bg-[#111C34] p-7 text-white border border-white/10 shadow-[0_8px_30px_rgba(0,0,0,0.3)]"
               >
                 <AnimatedParticles count={40} />
 

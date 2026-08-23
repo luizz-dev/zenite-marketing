@@ -4,9 +4,13 @@ import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { motion } from "framer-motion";
-import { Send, Loader2, MessageSquare } from "lucide-react";
+import { Send, Loader2, MessageSquare, User, Building2, Mail, CheckCircle2, AlertCircle } from "lucide-react";
+import { AnimatePresence } from "framer-motion";
 import { sendContactEmail } from "@/components/Contato/emailService";
 import AnimatedParticles from "@/components/AnimatedParticles";
+import { SectionBackdrop } from "@/components/motion/SectionBackdrop";
+
+const fieldIcons = { nome: User, nomeEmpresa: Building2, email: Mail } as const;
 
 function InputLabelLine({ children }: { children: React.ReactNode }) {
   return (
@@ -103,6 +107,24 @@ export default function ContatoContent() {
   });
 
   const [isSending, setIsSending] = useState(false);
+  const [desktopStatus, setDesktopStatus] = useState<
+    "idle" | "sending" | "success" | "error"
+  >("idle");
+
+  const handleDesktopSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setDesktopStatus("sending");
+
+    try {
+      await sendContactEmail(formData);
+      setDesktopStatus("success");
+      setFormData({ nome: "", email: "", nomeEmpresa: "", mensagem: "" });
+    } catch {
+      setDesktopStatus("error");
+    } finally {
+      setTimeout(() => setDesktopStatus("idle"), 4000);
+    }
+  };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -239,8 +261,18 @@ export default function ContatoContent() {
       {/* DESKTOP — nova seção, mesma identidade e mesmos textos do     */}
       {/* mobile, em split layout com partículas e reveal animado       */}
       {/* ============================================================ */}
-      <div className="hidden lg:block relative overflow-hidden">
+      <div className="hidden lg:block relative overflow-hidden bg-[#0A1628]">
+        <SectionBackdrop label="Contato" />
         <AnimatedParticles count={70} />
+
+        <div
+          className="absolute -top-24 -left-24 w-[420px] h-[420px] rounded-full pointer-events-none"
+          style={{ backgroundColor: "#00BCD4", opacity: 0.12, filter: "blur(120px)" }}
+        />
+        <div
+          className="absolute bottom-0 right-0 w-[380px] h-[380px] rounded-full pointer-events-none"
+          style={{ backgroundColor: "#F57C00", opacity: 0.1, filter: "blur(120px)" }}
+        />
 
         <section className="relative z-10 mx-auto grid max-w-6xl grid-cols-2 items-center gap-24 px-12 py-28 min-h-[80vh]">
           {/* Coluna esquerda — mesma mensagem do hero mobile */}
@@ -274,47 +306,79 @@ export default function ContatoContent() {
               whileInView={{ opacity: 1, scale: 1 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: 0.2 }}
-              className="mt-4 flex items-center gap-3 rounded-2xl border border-[#00B4D8]/30 bg-[#233454]/50 px-5 py-4 w-fit"
+              className="mt-4 flex items-center gap-3 rounded-2xl border border-[#00BCD4]/30 bg-[#111C34]/70 px-5 py-4 w-fit"
             >
-              <MessageSquare className="text-[#00B4D8]" size={22} />
+              <MessageSquare className="text-[#00BCD4]" size={22} />
               <span className="text-sm text-slate-200">
-                Resposta média em <span className="text-[#00B4D8] font-semibold">24h úteis</span>
+                Resposta média em <span className="text-[#00BCD4] font-semibold">24h úteis</span>
               </span>
             </motion.div>
           </motion.div>
 
           {/* Coluna direita — formulário (mesmos campos, mesmos textos) */}
           <motion.form
-            onSubmit={handleSubmit}
+            onSubmit={handleDesktopSubmit}
             initial={{ opacity: 0, x: 30 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true, margin: "-10%" }}
             transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-            className="rounded-3xl border border-white/10 bg-[#1C2F52]/70 backdrop-blur-xl p-10 shadow-2xl flex flex-col gap-6"
+            className="rounded-3xl border border-white/10 bg-[#111C34]/80 backdrop-blur-xl p-10 shadow-2xl flex flex-col gap-6"
           >
-            <div className="grid grid-cols-2 gap-6">
-              {fields.map((field, i) => (
+            <AnimatePresence>
+              {desktopStatus === "success" && (
                 <motion.div
-                  key={field.id}
-                  initial={{ opacity: 0, y: 16 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.4, delay: 0.1 * i }}
-                  className={`flex flex-col gap-1 ${field.id === "email" ? "col-span-2" : ""}`}
+                  initial={{ opacity: 0, y: -10, height: 0 }}
+                  animate={{ opacity: 1, y: 0, height: "auto" }}
+                  exit={{ opacity: 0, y: -10, height: 0 }}
+                  className="flex items-center gap-2 rounded-xl border border-emerald-500/30 bg-emerald-500/10 px-4 py-3 text-sm text-emerald-300 overflow-hidden"
                 >
-                  <InputLabelLine>{field.label}</InputLabelLine>
-                  <input
-                    type={field.type}
-                    placeholder={field.placeholder}
-                    value={formData[field.id]}
-                    onChange={(e) =>
-                      setFormData({ ...formData, [field.id]: e.target.value })
-                    }
-                    className={inputStyle}
-                    required
-                  />
+                  <CheckCircle2 size={18} /> Mensagem enviada! Retornaremos em breve.
                 </motion.div>
-              ))}
+              )}
+              {desktopStatus === "error" && (
+                <motion.div
+                  initial={{ opacity: 0, y: -10, height: 0 }}
+                  animate={{ opacity: 1, y: 0, height: "auto" }}
+                  exit={{ opacity: 0, y: -10, height: 0 }}
+                  className="flex items-center gap-2 rounded-xl border border-red-500/30 bg-red-500/10 px-4 py-3 text-sm text-red-300 overflow-hidden"
+                >
+                  <AlertCircle size={18} /> Algo deu errado. Tente novamente.
+                </motion.div>
+              )}
+            </AnimatePresence>
+
+            <div className="grid grid-cols-2 gap-6">
+              {fields.map((field, i) => {
+                const Icon = fieldIcons[field.id];
+                return (
+                  <motion.div
+                    key={field.id}
+                    initial={{ opacity: 0, y: 16 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.4, delay: 0.1 * i }}
+                    className={`flex flex-col gap-1 ${field.id === "email" ? "col-span-2" : ""}`}
+                  >
+                    <InputLabelLine>{field.label}</InputLabelLine>
+                    <div className="relative">
+                      <Icon
+                        size={16}
+                        className="pointer-events-none absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-500"
+                      />
+                      <input
+                        type={field.type}
+                        placeholder={field.placeholder}
+                        value={formData[field.id]}
+                        onChange={(e) =>
+                          setFormData({ ...formData, [field.id]: e.target.value })
+                        }
+                        className={`${inputStyle} pl-10`}
+                        required
+                      />
+                    </div>
+                  </motion.div>
+                );
+              })}
             </div>
 
             <motion.div
@@ -337,12 +401,12 @@ export default function ContatoContent() {
 
             <motion.button
               type="submit"
-              disabled={isSending}
+              disabled={desktopStatus === "sending"}
               whileHover={{ scale: 1.015 }}
               whileTap={{ scale: 0.98 }}
-              className="w-full mt-2 flex items-center justify-center gap-3 rounded-2xl bg-[#F58A00] px-6 py-3.5 font-rajdhani text-xl font-bold uppercase tracking-wide text-white shadow-[0_0_22px_rgba(245,138,0,0.65)] transition-shadow duration-200 hover:shadow-[0_0_28px_rgba(245,138,0,0.8)] disabled:opacity-50"
+              className="w-full mt-2 flex items-center justify-center gap-3 rounded-2xl bg-[#F57C00] px-6 py-3.5 font-rajdhani text-xl font-bold uppercase tracking-wide text-white shadow-[0_0_22px_rgba(245,124,0,0.65)] transition-shadow duration-200 hover:shadow-[0_0_28px_rgba(245,124,0,0.8)] disabled:opacity-50"
             >
-              {isSending ? (
+              {desktopStatus === "sending" ? (
                 <>
                   ENVIANDO... <Loader2 className="animate-spin" size={20} />
                 </>
