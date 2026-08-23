@@ -4,7 +4,9 @@ import { ServicesCarousel } from "@/components/Home/services-carousel";
 import { Button } from "@/components/Home/Button";
 import { User } from "lucide-react";
 import HomeDesktopHero from "@/components/Home/HomeDesktopHero";
+import HomeDesktopServices from "@/components/Home/HomeDesktopServices";
 import HomeDesktopTestimonials from "@/components/Home/HomeDesktopTestimonials";
+import { IntroLoader } from "@/components/IntroLoader";
 
 const testimonials = [
   {
@@ -27,6 +29,8 @@ const testimonials = [
 export default function Home() {
   return (
     <>
+      <IntroLoader />
+
       {/* ============================================================ */}
       {/* MOBILE — inalterado, apenas movido para dentro de lg:hidden   */}
       {/* ============================================================ */}
@@ -138,15 +142,7 @@ export default function Home() {
       {/* ============================================================ */}
       <div className="hidden lg:block">
         <HomeDesktopHero />
-
-        <section className="max-w-6xl mx-auto px-12 py-8">
-          <div className="flex items-center gap-3 mb-2">
-            <span className="h-1 w-6 rounded-full bg-[#F57C00]" />
-            <h2 className="text-3xl font-bold text-white">Serviços</h2>
-          </div>
-          <ServicesCarousel />
-        </section>
-
+        <HomeDesktopServices />
         <HomeDesktopTestimonials testimonials={testimonials} />
       </div>
     </>

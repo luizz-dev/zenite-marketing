@@ -94,6 +94,58 @@ function MemberCardBody({ member }: { member: (typeof teamMembers)[number] }) {
   );
 }
 
+function DesktopMemberCard({
+  member,
+  index,
+}: {
+  member: (typeof teamMembers)[number];
+  index: number;
+}) {
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 30 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: "-10%" }}
+      transition={{ duration: 0.45, delay: index * 0.1, ease: [0.22, 1, 0.36, 1] }}
+      whileHover={{ y: -8, borderColor: "rgba(0,188,212,0.4)" }}
+      className="relative flex flex-col items-center gap-3 rounded-2xl border border-white/10 bg-[#111C34] px-6 py-8 text-center shadow-[0_8px_30px_rgba(0,0,0,0.3)]"
+    >
+      {/* Avatar com anel gradiente laranja/cyan */}
+      <div className="relative flex h-20 w-20 items-center justify-center">
+        <div className="absolute inset-0 rounded-full bg-gradient-to-br from-[#F57C00] to-[#00BCD4] opacity-80" />
+        <div className="absolute inset-[3px] rounded-full bg-[#111C34] flex items-center justify-center">
+          <span className="text-lg font-bold text-white">{member.initials}</span>
+        </div>
+      </div>
+
+      <div>
+        <h3 className="text-base font-bold text-white">{member.name}</h3>
+        <p className="text-xs text-slate-400">{member.role}</p>
+      </div>
+
+      <div className="flex flex-wrap justify-center gap-1.5">
+        {member.tags.map((tag, idx) => (
+          <span
+            key={idx}
+            className={`inline-flex items-center justify-center px-2 py-0.5 rounded-full text-[10px] font-medium ${tag.color}`}
+          >
+            {tag.name}
+          </span>
+        ))}
+      </div>
+
+      <a
+        href={member.linkedin}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="mt-2 w-full py-2 rounded-xl bg-[#F57C00] hover:bg-[#e07000] text-white text-xs font-bold transition-all flex items-center justify-center gap-2 active:scale-95"
+      >
+        SAIBA MAIS <span>→</span>
+      </a>
+    </motion.div>
+  );
+}
+
 export default function TeamCarousel() {
   const [currentIndex, setCurrentIndex] = useState(0);
 
@@ -153,21 +205,10 @@ export default function TeamCarousel() {
         </div>
       </div>
 
-      {/* ============ DESKTOP — grid 4 colunas, sem carrossel ============ */}
+      {/* ============ DESKTOP — grid 4 colunas, tema navy/laranja/cyan ============ */}
       <div className="hidden lg:grid grid-cols-4 gap-6 max-w-5xl mx-auto py-4">
         {teamMembers.map((member, index) => (
-          <motion.div
-            key={member.name}
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-10%" }}
-            transition={{ duration: 0.45, delay: index * 0.1, ease: [0.22, 1, 0.36, 1] }}
-            whileHover={{ y: -8, scale: 1.02 }}
-            className="relative rounded-[20px] shadow-[0px_0px_5px_#4113CA] bg-gradient-to-b from-[#5739C4] to-[#1C3D7D] p-3 shadow-2xl border border-white/10 h-[230px]"
-          >
-            <div className="absolute top-[-8px] right-[-15px] w-[45%] h-[35%] rounded-full bg-[#5739C4] blur-2xl -z-0 pointer-events-none" />
-            <MemberCardBody member={member} />
-          </motion.div>
+          <DesktopMemberCard key={member.name} member={member} index={index} />
         ))}
       </div>
     </>

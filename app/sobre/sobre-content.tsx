@@ -6,6 +6,7 @@ import { motion, useScroll, useTransform } from "framer-motion";
 import AnimatedParticles from "@/components/AnimatedParticles";
 import TeamCarousel from "@/components/Sobre/TeamCarousel";
 import FaqSection from "@/components/Sobre/FaqSection";
+import { SectionBackdrop } from "@/components/motion/SectionBackdrop";
 
 export default function SobreContent() {
   // Timeline desktop: o nó de luz acompanha o progresso do scroll dentro
@@ -111,10 +112,21 @@ export default function SobreContent() {
           </motion.div>
 
           {/* HERO desktop */}
-          <section className="relative px-12 pt-20 pb-16 max-w-6xl mx-auto overflow-hidden">
+          <section className="relative min-h-screen flex items-center px-12 max-w-6xl mx-auto overflow-hidden">
+            <SectionBackdrop label="Sobre" />
             <AnimatedParticles count={70} />
 
-            <div className="relative z-10 grid grid-cols-2 items-center gap-16">
+            {/* Glows de marca — mesmo padrão do Hero da Home */}
+            <div
+              className="absolute -top-24 -left-24 w-[420px] h-[420px] rounded-full pointer-events-none"
+              style={{ backgroundColor: "#00BCD4", opacity: 0.12, filter: "blur(120px)" }}
+            />
+            <div
+              className="absolute bottom-0 right-0 w-[380px] h-[380px] rounded-full pointer-events-none"
+              style={{ backgroundColor: "#F57C00", opacity: 0.1, filter: "blur(120px)" }}
+            />
+
+            <div className="relative z-10 grid grid-cols-2 items-center gap-16 w-full">
               <motion.div
                 initial={{ opacity: 0, x: -30 }}
                 whileInView={{ opacity: 1, x: 0 }}
@@ -161,7 +173,8 @@ export default function SobreContent() {
           </section>
 
           {/* DESENVOLVEDORES desktop */}
-          <section className="relative px-12 pt-8 pb-20 bg-gradient-to-t from-[#170D4A] to-[#0F0C29] overflow-hidden">
+          <section className="relative min-h-screen flex flex-col justify-center px-12 py-20 bg-gradient-to-t from-[#170D4A] to-[#0F0C29] overflow-hidden">
+            <SectionBackdrop label="Equipe" />
             <AnimatedParticles count={70} />
 
             <motion.div
