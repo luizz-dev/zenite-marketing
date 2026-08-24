@@ -59,3 +59,28 @@ body {
   }
 }
  
+/* Esconde o cursor nativo só quando o CustomCursor está de fato montado
+   e ativo (classe adicionada via JS) — nunca no mobile/touch. */
+html.custom-cursor-active,
+html.custom-cursor-active * {
+  /* cursor: none !important; */
+}
+
+/* Drift lento dos blobs de glow do GlobalBackdrop — não estático */
+@keyframes backdrop-drift-a {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  50% { transform: translate(50px, 40px) scale(1.08); }
+}
+@keyframes backdrop-drift-b {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  50% { transform: translate(-45px, -35px) scale(1.05); }
+}
+.animate-backdrop-drift-a { animation: backdrop-drift-a 22s ease-in-out infinite; }
+.animate-backdrop-drift-b { animation: backdrop-drift-b 26s ease-in-out infinite; }
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-backdrop-drift-a,
+  .animate-backdrop-drift-b {
+    animation: none;
+  }
+}

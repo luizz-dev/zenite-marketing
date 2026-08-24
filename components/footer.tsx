@@ -3,7 +3,7 @@ import Image from "next/image";
 
 export function Footer() {
   return (
-    <footer className="w-full rounded-t-[32px] bg-[#193160] px-8 py-6 text-white">
+    <footer className="w-full rounded-t-[32px] lg:rounded-none bg-[#193160] px-8 py-6 text-white">
       <div className="mx-auto flex max-w-5xl items-center justify-between">
         <span className="text-lg font-medium tracking-wide">
           Redes sociais
@@ -12,7 +12,7 @@ export function Footer() {
         <div className="flex items-center gap-5">
           {/* WhatsApp */}
           <Link
-            href="https://wa.me/seunumero"
+            href="https://wa.me/5511961612056?text=Ol%C3%A1%2C%20Quero%20saber%20mais%20sobre%20o%20Z%C3%AAnite."
             target="_blank"
             rel="noopener noreferrer"
             className="flex items-center transition-all duration-300 hover:scale-110"

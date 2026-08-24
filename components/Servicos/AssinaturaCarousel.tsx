@@ -263,18 +263,27 @@ export function AssinaturaCarousel() {
           <BillingToggle billingCycle={billingCycle} setBillingCycle={setBillingCycle} />
         </div>
 
-        <div className="grid grid-cols-3 gap-8 w-full items-start">
-          {plans.map((plan, index) => (
-            <motion.div
-              key={plan.title}
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-10%" }}
-              transition={{ duration: 0.45, delay: index * 0.12, ease: [0.22, 1, 0.36, 1] }}
-              whileHover={{ y: -8, scale: 1.02 }}
-              style={{ background: "linear-gradient(180deg, #1B263B 0%, #193160 100%)" }}
-              className="w-full shadow-[0_0px_7px_rgba(0,0,0,.5)] rounded-xl p-6 pt-0 text-white flex flex-col justify-between min-h-[380px] border border-white/10 overflow-hidden"
-            >
+        <div className="grid grid-cols-3 gap-0 w-full items-stretch">
+          {plans.map((plan, index) => {
+            const isEdgeLeft = index === 0;
+            const isCenter = index === 1;
+            const isEdgeRight = index === 2;
+
+            return (
+              <motion.div
+                key={plan.title}
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: "-10%" }}
+                transition={{ duration: 0.45, delay: index * 0.12, ease: [0.22, 1, 0.36, 1] }}
+                whileHover={{ y: -8 }}
+                style={{ background: "linear-gradient(180deg, #1B263B 0%, #193160 100%)" }}
+                className={`w-full shadow-[0_0px_7px_rgba(0,0,0,.5)] p-6 pt-0 text-white flex flex-col justify-between border border-white/10 overflow-hidden
+                  ${isCenter ? "min-h-[420px] scale-105 z-10 rounded-xl border-[#00BCD4]/40" : "min-h-[380px]"}
+                  ${isEdgeLeft ? "rounded-l-2xl rounded-r-none pr-2" : ""}
+                  ${isEdgeRight ? "rounded-r-2xl rounded-l-none pl-2" : ""}
+                `}
+              >
               <div className="w-full flex justify-center mb-0">
                 <div
                   style={{
@@ -324,7 +333,8 @@ export function AssinaturaCarousel() {
                 {plan.buttonText}
               </a>
             </motion.div>
-          ))}
+            );
+          })}
         </div>
       </div>
     </>
