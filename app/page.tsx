@@ -7,6 +7,7 @@ import HomeDesktopHero from "@/components/Home/HomeDesktopHero";
 import HomeDesktopServices from "@/components/Home/HomeDesktopServices";
 import HomeDesktopTestimonials from "@/components/Home/HomeDesktopTestimonials";
 import { IntroLoader } from "@/components/IntroLoader";
+import { GlobalBackdrop } from "@/components/motion/GlobalBackdrop";
 
 const testimonials = [
   {
@@ -140,10 +141,13 @@ export default function Home() {
       {/* ============================================================ */}
       {/* DESKTOP — nova experiência, mesmos textos/imagens do mobile    */}
       {/* ============================================================ */}
-      <div className="hidden lg:block">
-        <HomeDesktopHero />
-        <HomeDesktopServices />
-        <HomeDesktopTestimonials testimonials={testimonials} />
+      <div className="hidden lg:block relative bg-[#0A1628]">
+        <GlobalBackdrop />
+        <div className="relative z-10">
+          <HomeDesktopHero />
+          <HomeDesktopServices />
+          <HomeDesktopTestimonials testimonials={testimonials} />
+        </div>
       </div>
     </>
   );

@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Navbar } from "@/components/navBar";
 import { ConditionalFooter } from "@/components/conditional-footer";
 import { SmoothScrollProvider } from "@/components/providers/SmoothScrollProvider";
+import { CustomCursor } from "@/components/CustomCursor";
 import "./globals.css";
 import { Rajdhani, Barlow, Inter } from "next/font/google";
 
@@ -25,10 +26,12 @@ const inter = Inter({
 
 export const metadata: Metadata = {
   title: {
-    default: "Home | Zênite ",
+    default: "Home | Zênite",
     template: "%s | Zênite",
   },
   description: "Soluções para o seu negócio",
+  icons: {
+    icon: "./public/icons/favicon-16x16.png",   },
 };
 
 export default function RootLayout({
@@ -42,6 +45,7 @@ export default function RootLayout({
         className={`${rajdhani.variable} ${barlow.variable} ${inter.variable} flex min-h-full w-full flex-col overflow-x-hidden bg-black text-white`}
       >
         <SmoothScrollProvider>
+          <CustomCursor />
           <Navbar />
           {children}
           <ConditionalFooter />

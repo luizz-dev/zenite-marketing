@@ -21,7 +21,7 @@ export function Navbar() {
 
   return (
     <>
-      <nav className="flex w-full items-center justify-between bg-[#1B263B] px-8 py-6">
+      <nav className="flex w-full items-center justify-between bg-[#1B263B] px-34 py-6">
         {/* Logo responsivo sem causar overflow/scroll */}
         <Link href="/">
           <Image

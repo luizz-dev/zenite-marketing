@@ -6,6 +6,7 @@ import { ClipboardList, RefreshCw, Activity } from "lucide-react";
 import { AssinaturaCarousel } from "@/components/Servicos/AssinaturaCarousel";
 import AnimatedParticles from "@/components/AnimatedParticles";
 import { SectionBackdrop } from "@/components/motion/SectionBackdrop";
+import { GlobalBackdrop } from "@/components/motion/GlobalBackdrop";
 
 const features = [
   {
@@ -162,19 +163,11 @@ export default function ServicosPage() {
       {/* DESKTOP — mesma narrativa e mesmos textos do mobile, animada  */}
       {/* ============================================================ */}
       <div className="hidden lg:block relative overflow-hidden bg-[#0A1628]">
-        {/* Assinaturas — hero da página, full-screen com backdrop */}
-        <section className="relative min-h-screen flex flex-col items-center justify-center px-12 text-center overflow-hidden">
-          <SectionBackdrop label="Planos" />
-          <AnimatedParticles count={70} />
+        <GlobalBackdrop />
 
-          <div
-            className="absolute -top-24 -left-24 w-[420px] h-[420px] rounded-full pointer-events-none"
-            style={{ backgroundColor: "#00BCD4", opacity: 0.12, filter: "blur(120px)" }}
-          />
-          <div
-            className="absolute bottom-0 right-0 w-[380px] h-[380px] rounded-full pointer-events-none"
-            style={{ backgroundColor: "#F57C00", opacity: 0.1, filter: "blur(120px)" }}
-          />
+        {/* Assinaturas — hero da página, full-screen com backdrop */}
+        <section className="relative z-10 min-h-screen flex flex-col items-center justify-center px-12 text-center overflow-hidden">
+          <SectionBackdrop label="Planos" />
 
           <motion.div
             initial={{ opacity: 0, y: 16 }}
@@ -200,7 +193,7 @@ export default function ServicosPage() {
         </section>
 
         {/* Como funciona — passos em linha horizontal, com ícones */}
-        <section className="relative px-12 py-24">
+        <section id="como-funciona" className="relative px-12 py-24">
           <motion.div
             initial={{ opacity: 0, y: 24 }}
             whileInView={{ opacity: 1, y: 0 }}

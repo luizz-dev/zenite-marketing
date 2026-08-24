@@ -79,11 +79,29 @@ export function SmoothScrollProvider({
   }, []);
 
   // Rede de segurança extra: recalcula explicitamente a cada troca de
-  // rota, depois que o novo conteúdo já renderizou
+  // rota, depois que o novo conteúdo já renderizou, e rola até o hash
+  // da URL se houver um (ex: /servicos#como-funciona vindo da Home)
   useEffect(() => {
     const id = requestAnimationFrame(() => {
       lenisRef.current?.resize();
       ScrollTrigger.refresh();
+
+      const hash = window.location.hash;
+      if (hash) {
+        const el = document.querySelector(hash);
+        if (el) {
+          if (lenisRef.current) {
+            lenisRef.current.scrollTo(el as HTMLElement, { offset: -80 });
+          } else {
+            el.scrollIntoView({ behavior: "smooth", block: "start" });
+          }
+        }
+        // Remove o hash da URL depois de usá-lo — sem isso, ele fica
+        // "grudado" na barra de endereço e volta a disparar o scroll
+        // em qualquer navegação futura pra mesma rota (ex: clicar em
+        // "Serviços" no menu depois de ter vindo de "Como funciona")
+        window.history.replaceState(null, "", window.location.pathname);
+      }
     });
     return () => cancelAnimationFrame(id);
   }, [pathname]);

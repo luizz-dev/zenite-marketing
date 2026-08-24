@@ -1,11 +1,10 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { useRef } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { Button } from "@/components/Home/Button";
-import { HeroSceneLoader } from "@/components/three/HeroSceneLoader";
-import { LiquidBlobLoader } from "@/components/three/LiquidBlobLoader";
 
 const HEADLINE_WORDS = [
   "O",
@@ -51,23 +50,8 @@ export default function HomeDesktopHero() {
     <section
       ref={sectionRef}
       className="relative overflow-hidden px-12 py-32"
-      style={{
-        background:
-          "radial-gradient(120% 100% at 15% 0%, #142344 0%, #0A1628 55%, #0A1628 100%)",
-      }}
     >
-      {/* Grade sutil de fundo — mesmo espírito das linhas do neoconda.com */}
-      <div
-        className="absolute inset-0 opacity-[0.05] pointer-events-none"
-        style={{
-          backgroundImage:
-            "linear-gradient(#fff 1px, transparent 1px), linear-gradient(90deg, #fff 1px, transparent 1px)",
-          backgroundSize: "56px 56px",
-        }}
-      />
-
-      {/* Tipografia gigante de fundo, atrás da cena 3D — efeito "ZÊNITE" gigante,
-          como o nome do produto atrás do device no neoconda.com */}
+      {/* Tipografia gigante de fundo */}
       <div className="absolute inset-0 flex items-center justify-center overflow-hidden pointer-events-none select-none">
         <span
           className="font-extrabold uppercase tracking-tight whitespace-nowrap"
@@ -79,21 +63,6 @@ export default function HomeDesktopHero() {
         >
           Zênite
         </span>
-      </div>
-
-      {/* Glow de marca — cyan à esquerda, laranja sutil ao fundo */}
-      <div
-        className="absolute -top-24 -left-24 w-[420px] h-[420px] rounded-full pointer-events-none"
-        style={{ backgroundColor: "#00BCD4", opacity: 0.14, filter: "blur(120px)" }}
-      />
-      <div
-        className="absolute bottom-0 right-0 w-[380px] h-[380px] rounded-full pointer-events-none"
-        style={{ backgroundColor: "#F57C00", opacity: 0.12, filter: "blur(120px)" }}
-      />
-
-      {/* Blob líquido decorativo — acento visual atrás do texto, sem competir com o painel 3D do dashboard */}
-      <div className="absolute -top-20 -left-16 w-[320px] h-[320px] opacity-70">
-        <LiquidBlobLoader className="w-full h-full" />
       </div>
 
       <div className="relative mx-auto grid max-w-6xl grid-cols-2 items-center gap-16">
@@ -143,7 +112,7 @@ export default function HomeDesktopHero() {
 
             <motion.div whileHover={{ y: -3 }} whileTap={{ scale: 0.97 }}>
               <Link
-                href="#como-funciona"
+                href="/servicos#como-funciona"
                 className="flex items-center justify-center gap-1 rounded-xl border border-white/15 px-5 py-3.5 text-sm font-semibold text-white transition-colors hover:bg-white/5"
               >
                 Como funciona <span className="text-lg">→</span>
@@ -152,7 +121,7 @@ export default function HomeDesktopHero() {
           </motion.div>
         </div>
 
-        {/* Ilustração 3D (ou fallback) com parallax de scroll */}
+        {/* Imagem de ilustração com parallax de scroll */}
         <motion.div
           initial={{ opacity: 0, scale: 0.92 }}
           animate={{ opacity: 1, scale: 1 }}
@@ -169,7 +138,14 @@ export default function HomeDesktopHero() {
             style={{ backgroundColor: "#00BCD4", opacity: 0.25, filter: "blur(50px)" }}
           />
 
-          <HeroSceneLoader />
+          <Image
+            src="/img/hero-illustration.png"
+            alt="Dashboard Zênite"
+            width={400}
+            height={250}
+            className="w-full h-auto object-contain relative z-10 drop-shadow-[0_0_20px_rgba(0,0,0,0.45)]"
+            priority
+          />
         </motion.div>
       </div>
     </section>
