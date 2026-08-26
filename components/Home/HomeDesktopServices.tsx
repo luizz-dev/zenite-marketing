@@ -172,7 +172,7 @@ function ProgressArrow({ delay = 0 }: { delay?: number }) {
 
 export default function HomeDesktopServices() {
   return (
-    <section className="relative px-12 py-20">
+    <section id="home-servicos" className="relative px-12 py-20">
       <div className="mx-auto max-w-6xl">
         <motion.div
           initial={{ opacity: 0, x: -16 }}

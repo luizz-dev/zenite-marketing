@@ -7,6 +7,7 @@ import { AssinaturaCarousel } from "@/components/Servicos/AssinaturaCarousel";
 import AnimatedParticles from "@/components/AnimatedParticles";
 import { SectionBackdrop } from "@/components/motion/SectionBackdrop";
 import { GlobalBackdrop } from "@/components/motion/GlobalBackdrop";
+import { SectionSnap } from "@/components/motion/SectionSnap";
 
 const features = [
   {
@@ -67,7 +68,7 @@ const steps = [
 
 export default function ServicosPage() {
   return (
-    <main className="min-h-screen bg-[#F8F9FA] text-slate-900 pb-12">
+    <main className="min-h-screen bg-[#F8F9FA] text-slate-900 pb-12 lg:pb-0">
       {/* ============================================================ */}
       {/* MOBILE — inalterado, apenas movido para dentro de lg:hidden   */}
       {/* ============================================================ */}
@@ -164,9 +165,10 @@ export default function ServicosPage() {
       {/* ============================================================ */}
       <div className="hidden lg:block relative overflow-hidden bg-[#0A1628]">
         <GlobalBackdrop />
+        <SectionSnap selectors={["#servicos-planos", "#como-funciona", "#servicos-por-que"]} />
 
         {/* Assinaturas — hero da página, full-screen com backdrop */}
-        <section className="relative z-10 min-h-screen flex flex-col items-center justify-center px-12 text-center overflow-hidden">
+        <section id="servicos-planos" className="relative z-10 min-h-screen flex flex-col items-center justify-center px-12 text-center overflow-hidden">
           <SectionBackdrop label="Planos" />
 
           <motion.div
@@ -238,7 +240,7 @@ export default function ServicosPage() {
         </section>
 
         {/* Por que escolher a Zênite? — grid 2x2 */}
-        <section className="relative px-12 pb-28">
+        <section id="servicos-por-que" className="relative px-12 pb-28">
           <motion.div
             initial={{ opacity: 0, y: 16 }}
             whileInView={{ opacity: 1, y: 0 }}

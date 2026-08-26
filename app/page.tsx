@@ -8,6 +8,7 @@ import HomeDesktopServices from "@/components/Home/HomeDesktopServices";
 import HomeDesktopTestimonials from "@/components/Home/HomeDesktopTestimonials";
 import { IntroLoader } from "@/components/IntroLoader";
 import { GlobalBackdrop } from "@/components/motion/GlobalBackdrop";
+import { SectionSnap } from "@/components/motion/SectionSnap";
 
 const testimonials = [
   {
@@ -143,6 +144,7 @@ export default function Home() {
       {/* ============================================================ */}
       <div className="hidden lg:block relative bg-[#0A1628]">
         <GlobalBackdrop />
+        <SectionSnap selectors={["#home-hero", "#home-servicos", "#home-avaliacoes"]} />
         <div className="relative z-10">
           <HomeDesktopHero />
           <HomeDesktopServices />
