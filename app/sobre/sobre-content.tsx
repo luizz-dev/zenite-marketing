@@ -187,10 +187,10 @@ export default function SobreContent() {
               <TeamCarousel />
             </div>
           </section>
-
-          {/* FAQS desktop (já lida com o próprio breakpoint internamente) */}
-          <FaqSection />
         </div>
+
+        {/* FAQS desktop — fora do trilho da timeline, não atravessa mais essa seção */}
+        <FaqSection />
       </div>
     </main>
   );

@@ -34,6 +34,7 @@ export function SmoothScrollProvider({
       });
 
       lenisRef.current = lenis;
+      (window as unknown as { __lenis?: Lenis }).__lenis = lenis;
 
       tickerFn = (time: number) => lenis.raf(time * 1000);
       gsap.ticker.add(tickerFn);
@@ -62,6 +63,7 @@ export function SmoothScrollProvider({
       resizeObserver = null;
       lenisRef.current?.destroy();
       lenisRef.current = null;
+      delete (window as unknown as { __lenis?: Lenis }).__lenis;
     }
 
     function handleChange() {
