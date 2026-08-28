@@ -6,12 +6,10 @@ const TRAIL_LENGTH = 16;
 
 /**
  * Cursor customizado — círculo com lerp suave seguindo o mouse, mais
- * um rastro leve (pontinhos que "perseguem" o círculo principal, cada
- * um com um pouco mais de atraso e menos opacidade).
+ * um rastro leve (pontinhos que "perseguem" o círculo principal).
  *
- * Cursor nativo continua visível — este componente só adiciona o anel
- * e o rastro por cima. Só renderiza em dispositivos com mouse real
- * (pointer: fine), então mobile/touch nunca é afetado.
+ * SÓ RENDERIZA E EXECUTA EM DESKTOP (mouse de precisão + viewport >= 768px).
+ * Em dispositivos touch / mobile, o componente retorna null e descarta todos os listeners.
  */
 export function CustomCursor() {
   const dotRef = useRef<HTMLDivElement>(null);
@@ -20,11 +18,30 @@ export function CustomCursor() {
   const [isHoveringInteractive, setIsHoveringInteractive] = useState(false);
 
   useEffect(() => {
-    const hasFinePointer = window.matchMedia("(pointer: fine)").matches;
-    setEnabled(hasFinePointer);
+    // Media queries para garantir que o dispositivo usa mouse fino, tem hover e tela desktop
+    const finePointerQuery = window.matchMedia("(pointer: fine) and (hover: hover)");
+
+    const checkDeviceSupport = () => {
+      const isDesktopWidth = window.innerWidth >= 768;
+      const hasFineMouse = finePointerQuery.matches;
+      setEnabled(hasFineMouse && isDesktopWidth);
+    };
+
+    // Validação inicial
+    checkDeviceSupport();
+
+    // Event listeners para mudanças de tela ou alternância de ponteiro
+    finePointerQuery.addEventListener("change", checkDeviceSupport);
+    window.addEventListener("resize", checkDeviceSupport);
+
+    return () => {
+      finePointerQuery.removeEventListener("change", checkDeviceSupport);
+      window.removeEventListener("resize", checkDeviceSupport);
+    };
   }, []);
 
   useEffect(() => {
+    // Se for mobile ou touch, interrompe imediatamente sem criar listeners de mouse
     if (!enabled) return;
 
     const pos = { x: window.innerWidth / 2, y: window.innerHeight / 2 };
@@ -37,11 +54,13 @@ export function CustomCursor() {
       target.y = e.clientY;
 
       const el = e.target as HTMLElement;
-      setIsHoveringInteractive(!!el.closest("a, button, [role='button'], input, textarea"));
+      setIsHoveringInteractive(
+        !!el.closest("a, button, [role='button'], input, textarea, select")
+      );
     }
 
     function loop() {
-      // Lerp/easing leve — o círculo "persegue" o mouse em vez de grudar
+      // Lerp do elemento principal
       pos.x += (target.x - pos.x) * 0.18;
       pos.y += (target.y - pos.y) * 0.18;
 
@@ -49,11 +68,10 @@ export function CustomCursor() {
         dotRef.current.style.transform = `translate3d(${pos.x}px, ${pos.y}px, 0) translate(-50%, -50%)`;
       }
 
-      // Rastro: cada ponto persegue o anterior (o primeiro persegue o
-      // círculo principal), com lerp mais lento — cria o efeito de
-      // "cauda" leve sem custar quase nada de performance.
+      // Lerp do rastro
       let leaderX = pos.x;
       let leaderY = pos.y;
+
       trailPositions.forEach((tp, i) => {
         tp.x += (leaderX - tp.x) * 0.28;
         tp.y += (leaderY - tp.y) * 0.28;
@@ -69,7 +87,7 @@ export function CustomCursor() {
       rafId = requestAnimationFrame(loop);
     }
 
-    window.addEventListener("mousemove", handleMouseMove);
+    window.addEventListener("mousemove", handleMouseMove, { passive: true });
     rafId = requestAnimationFrame(loop);
 
     return () => {
@@ -78,6 +96,7 @@ export function CustomCursor() {
     };
   }, [enabled]);
 
+  // Não renderiza nada no DOM em telas mobile ou dispositivos touch
   if (!enabled) return null;
 
   return (
@@ -100,7 +119,7 @@ export function CustomCursor() {
 
       <div
         ref={dotRef}
-        className="fixed left-0 top-0 z-[999] rounded-full border transition-[width,height,background-color] duration-200 ease-out"
+        className="fixed left-0 top-0 z-[999] rounded-full border transition-[width,height,background-color] duration-200 ease-out pointer-events-none"
         style={{
           width: isHoveringInteractive ? 60 : 40,
           height: isHoveringInteractive ? 60 : 40,
@@ -110,7 +129,6 @@ export function CustomCursor() {
             : "transparent",
           backdropFilter: "blur(1px)",
           boxShadow: "0 0 12px rgba(0,188,212,0.35)",
-          pointerEvents: "none",
         }}
       />
     </>

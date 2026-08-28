@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo } from "react";
+import { useEffect, useState } from "react";
 
 // Marcas orgânicas pequenas e variadas (viewBox 0 0 24 24): elipse fina,
 // feijão, pétala, gancho, vírgula com pontinho solto, anel fino, arco.
@@ -106,7 +106,24 @@ export default function AnimatedParticles({
   count = 34,
   className = "",
 }: AnimatedParticlesProps) {
-  const particles = useMemo(() => generateParticles(count), [count]);
+  // Math.random() não pode rodar durante o render do servidor (SSR),
+  // senão o HTML gerado no servidor nunca bate com o do cliente na
+  // hidratação. Por isso as partículas só são geradas depois do mount,
+  // já no cliente — o servidor sempre renderiza o container vazio.
+  const [particles, setParticles] = useState<Particle[] | null>(null);
+
+  useEffect(() => {
+    setParticles(generateParticles(count));
+  }, [count]);
+
+  if (!particles) {
+    return (
+      <div
+        aria-hidden="true"
+        className={`pointer-events-none absolute inset-0 overflow-hidden ${className}`}
+      />
+    );
+  }
 
   return (
     <div

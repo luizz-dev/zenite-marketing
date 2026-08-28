@@ -49,12 +49,12 @@ export default function SobreContent() {
 
         </div>
           {/* Imagem Principal */}
-          <div className="relative z-10 w-full h-[210px] rounded-[100px] ">
+          <div className="relative z-10 w-full h-[260px] rounded-[5px] overflow-hidden">
             <Image
-              src="/img/equipe.png"
+              src="/img/equipe.jpeg"
               alt="Equipe Zênite"
               fill
-              className="object-cover"
+              className=""
             />
           </div>
 
@@ -102,8 +102,8 @@ export default function SobreContent() {
       {/* DESKTOP — mesma narrativa do mobile, com timeline animada     */}
       {/* ============================================================ */}
       <div className="hidden lg:block relative bg-[#0A1628]">
-        <GlobalBackdrop />
         <div ref={timelineRef} className="relative z-10">
+          <GlobalBackdrop />
           {/* trilho + nó de luz que acompanha o scroll (hero → equipe) */}
           <div className="pointer-events-none absolute left-1/2 top-0 h-full w-[2px] -translate-x-1/2 bg-white/10 z-0" />
           <motion.div
@@ -117,7 +117,7 @@ export default function SobreContent() {
           <section className="relative min-h-screen flex items-center px-12 overflow-hidden">
             <SectionBackdrop label="Sobre" />
 
-            <div className="relative z-10 grid grid-cols-2 items-center gap-16 w-full max-w-6xl mx-auto">
+            <div className="relative z-10 grid grid-cols-2 items-center gap-16 w-full max-w-6xl mb-20 mx-auto">
               <motion.div
                 initial={{ opacity: 0, x: -30 }}
                 whileInView={{ opacity: 1, x: 0 }}
@@ -156,15 +156,15 @@ export default function SobreContent() {
                 whileInView={{ opacity: 1, scale: 1 }}
                 viewport={{ once: true, margin: "-10%" }}
                 transition={{ duration: 0.6, delay: 0.15, ease: [0.22, 1, 0.36, 1] }}
-                className="relative w-full h-[360px] rounded-[48px] overflow-hidden"
+                className="relative w-full h-[420px] rounded-[10px] overflow-hidden"
               >
-                <Image src="/img/equipe.png" alt="Equipe Zênite" fill className="object-cover" />
+                <Image src="/img/equipe.jpeg" alt="Equipe Zênite" fill className="" />
               </motion.div>
             </div>
           </section>
 
           {/* DESENVOLVEDORES desktop */}
-          <section className="relative min-h-screen flex flex-col justify-center px-12 py-20 overflow-hidden">
+          <section className="relative min-h-screen flex flex-col justify-center px-12 pb-20 overflow-hidden">
             <SectionBackdrop label="Equipe" />
 
             <motion.div
@@ -172,7 +172,7 @@ export default function SobreContent() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5 }}
-              className="relative z-10 flex flex-col gap-1 max-w-6xl mx-auto w-full mb-10"
+              className="relative z-10 flex flex-col gap-1 max-w-6xl mx-auto w-full mb-15"
             >
               <div className="flex items-center gap-2">
                 <span className="h-1 w-3 rounded-full bg-[#F57C00]" />
@@ -183,7 +183,7 @@ export default function SobreContent() {
               <h2 className="text-3xl font-bold text-white">A equipe por trás</h2>
             </motion.div>
 
-            <div className="relative z-10">
+            <div className="relative z-10 w-full ">
               <TeamCarousel />
             </div>
           </section>

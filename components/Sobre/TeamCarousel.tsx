@@ -22,7 +22,7 @@ const teamMembers = [
     initials: "GL",
     name: "Gabriel Lacerda",
     role: "Dev Back-End",
-    linkedin: "https://www.linkedin.com/in/perfil-gabriel",
+    linkedin: "https://www.linkedin.com/in/gabriel-da-rocha-de-lacerda-861886406/",
     tags: [
       { name: "PHP", color: "bg-indigo-600/30 text-indigo-300 border border-indigo-500/30" },
       { name: "MySQL", color: "bg-cyan-600/30 text-cyan-300 border border-cyan-500/30" },
@@ -34,7 +34,7 @@ const teamMembers = [
     initials: "LS",
     name: "Luisa Sales",
     role: "Dev Front-End",
-    linkedin: "https://www.linkedin.com/in/perfil-luisa",
+    linkedin: "https://www.linkedin.com/in/luisa-cristina-sales-45a2043a0/",
     tags: [
       { name: "TS", color: "bg-blue-600/30 text-blue-300 border border-blue-500/30" },
       { name: "Marketing", color: "bg-purple-600/30 text-purple-300 border border-purple-500/30" },
@@ -46,7 +46,7 @@ const teamMembers = [
     initials: "AV",
     name: "Aquiles Vinicius",
     role: "Dev Back-End",
-    linkedin: "https://www.linkedin.com/in/perfil-aquiles",
+    linkedin: "https://www.linkedin.com/in/aquiles-vinicius-3783062b4/",
     tags: [
       { name: "PHP", color: "bg-indigo-600/30 text-indigo-300 border border-indigo-500/30" },
       { name: "MySQL", color: "bg-cyan-600/30 text-cyan-300 border border-cyan-500/30" },
@@ -56,6 +56,7 @@ const teamMembers = [
   },
 ];
 
+/* MOBILE: Mantido layout original empilhado */
 function MemberCardBody({ member }: { member: (typeof teamMembers)[number] }) {
   return (
     <div className="w-[95%] h-[95%] rounded-[15px] bg-white/[0.03] shadow-[0px_0px_10px_#00000050] backdrop-blur-md p-4 py-4.5 flex flex-col justify-between">
@@ -94,6 +95,7 @@ function MemberCardBody({ member }: { member: (typeof teamMembers)[number] }) {
   );
 }
 
+/* DESKTOP: Nome e Role lado a lado com hífen */
 function DesktopMemberCard({
   member,
   index,
@@ -118,8 +120,9 @@ function DesktopMemberCard({
         </div>
       </div>
 
-      <div>
+      <div className="flex flex-wrap items-center justify-center gap-1.5  mt-2.5">
         <h3 className="text-base font-bold text-white">{member.name}</h3>
+        <span className="text-xs text-slate-400 font-semibold">-</span>
         <p className="text-xs text-slate-400">{member.role}</p>
       </div>
 
@@ -138,7 +141,7 @@ function DesktopMemberCard({
         href={member.linkedin}
         target="_blank"
         rel="noopener noreferrer"
-        className="mt-2 w-full py-2 rounded-xl bg-[#F57C00] hover:bg-[#e07000] text-white text-xs font-bold transition-all flex items-center justify-center gap-2 active:scale-95"
+        className="mt-2 w-[90%] py-2 rounded-xl bg-[#F57C00] hover:bg-[#e07000] text-white text-xs font-bold transition-all flex items-center justify-center gap-2 active:scale-95"
       >
         SAIBA MAIS <span>→</span>
       </a>
@@ -161,13 +164,13 @@ export default function TeamCarousel() {
 
   return (
     <>
-      {/* ============ MOBILE — carrossel original, intacto ============ */}
+      {/* ============ MOBILE — carrossel original ============ */}
       <div className="lg:hidden">
         <div className="relative z-10 w- max-w-xs mx-auto flex items-center justify-center py-4">
           <div className="absolute top-[-8px] right-[-25px] w-[30%] h-[40%] rounded-full bg-[#5739C4]/100 blur-10 -z-0 pointer-events-none" />
           <div className="absolute bottom-[-10px] left-[-25px] w-[30%] h-[40%] rounded-full bg-[#5739C4]/100 blur-10 -z-0 pointer-events-none" />
 
-          <div className="relative z-10 w-[70vw] h-[20vh] rounded-[20px] shadow-[0px_0px_5px_#4113CA] bg-gradient-to-b from-[#5739C4] to-[#1C3D7D] p-3 shadow-2xl flex items-center justify-center border border-white/10">
+          <div className="relative z-10 w-[75vw] h-[20vh] rounded-[20px] shadow-[0px_0px_5px_#4113CA] bg-gradient-to-b from-[#5739C4] to-[#1C3D7D] p-3 shadow-2xl flex items-center justify-center border border-white/10">
             <MemberCardBody member={currentMember} />
           </div>
         </div>
@@ -205,8 +208,8 @@ export default function TeamCarousel() {
         </div>
       </div>
 
-      {/* ============ DESKTOP — grid 4 colunas, tema navy/laranja/cyan ============ */}
-      <div className="hidden lg:grid grid-cols-4 gap-6 max-w-5xl mx-auto py-4">
+      {/* ============ DESKTOP — grid 4 colunas ============ */}
+      <div className="hidden lg:grid grid-cols-4 gap-6 w-[70vw] mx-auto py-4">
         {teamMembers.map((member, index) => (
           <DesktopMemberCard key={member.name} member={member} index={index} />
         ))}

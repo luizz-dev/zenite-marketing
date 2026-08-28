@@ -16,14 +16,14 @@ const services = [
     description:
       "Simplifique a emissão de notas e documentos. Ganhe tempo com processos fiscais rápidos e seguros.",
     icon: "/img/doc.png",
-    accent: "#F57C00",
+    accent: "#00BCD4",
   },
   {
     title: "Gestão Inteligente",
     description:
       "Automatize o controle de entradas e saídas. Mantenha seu inventário sincronizado com precisão absoluta.",
     icon: "/img/caixa.png",
-    accent: "#00BCD4",
+    accent: "#F57C00",
   },
   {
     title: "Organização do Financeiro",
@@ -196,9 +196,9 @@ export default function HomeDesktopServices() {
 
         {/* Grid com setas de progressão entre os 3 cards */}
         <div className="grid items-center gap-0" style={{ gridTemplateColumns: "1fr auto 1fr auto 1fr" }}>
-          <TiltCard service={services[0]} index={0} />
-          <ProgressArrow delay={0.3} />
           <TiltCard service={services[1]} index={1} />
+          <ProgressArrow delay={0.3} />
+          <TiltCard service={services[0]} index={0} />
           <ProgressArrow delay={0.5} />
           <TiltCard service={services[2]} index={2} />
         </div>

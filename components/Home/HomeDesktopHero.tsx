@@ -105,7 +105,7 @@ export default function HomeDesktopHero() {
             className="flex items-center gap-4 pt-2"
           >
             <motion.div whileHover={{ y: -3 }} whileTap={{ scale: 0.97 }}>
-              <Button href="/cadastro" variant="textured">
+              <Button href="/servicos" variant="textured">
                 Começar agora
               </Button>
             </motion.div>

@@ -21,11 +21,11 @@ export function Navbar() {
 
   return (
     <>
-      <nav className="flex w-full items-center justify-between bg-[#1B263B] px-34 py-6">
+      <nav className="flex w-full items-center justify-between bg-[#1B263B] px-10 py-6 lg:px-30 ">
         {/* Logo responsivo sem causar overflow/scroll */}
         <Link href="/">
           <Image
-            src="/img/logo_branco_zenite.png"
+            src="/img/logoZenite/logo_branco_zenite.png"
             alt="Logo Zênite"
             width={200}
             height={50}

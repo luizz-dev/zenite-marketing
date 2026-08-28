@@ -37,7 +37,7 @@ export default function HomeDesktopTestimonials({
               viewport={{ once: true, margin: "-10%" }}
               transition={{ duration: 0.45, delay: index * 0.12, ease: [0.22, 1, 0.36, 1] }}
               whileHover={{ y: -6, borderColor: "rgba(0,188,212,0.4)" }}
-              className="flex items-start gap-4 rounded-3xl bg-[#111C34] p-5 border border-white/10 shadow-[0_8px_30px_rgba(0,0,0,0.35)]"
+              className="flex h-[14vh] items-start gap-4 rounded-3xl bg-[#111C34] p-5 border border-white/10 shadow-[0_8px_30px_rgba(0,0,0,0.35)]"
             >
               <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-white/10 text-slate-300">
                 <User size={28} />

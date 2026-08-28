@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { ChevronDown } from "lucide-react";
+import AnimatedParticles from "@/components/AnimatedParticles";
 
 const faqItems = [
   {
@@ -13,7 +14,7 @@ const faqItems = [
   {
     question: "Como vocês surgiram?",
     answer:
-      "Surgimos para simplificar a rotina fiscal e de controle de inventário para pequenos empreendedores.",
+      "Surgimos na Etec Jaraguá no curso de Desenvolvimento de Sistemas, nascemos com uma missão, resolver as dores reais dos MEIs.Sendo assim, desenvolvemos uma solução simples e eficiente para transformar a rotina fiscal e o controle do estoque de pequenos empreendedores mais viáveis.",
   },
   {
     question: "Como entro em contato?",
@@ -39,7 +40,7 @@ export default function FaqSection({ className = "" }: FaqSectionProps) {
   };
 
   return (
-    <section className={`bg-white text-slate-900 px-6 py-10 ${className}`}>
+    <section className={`bg-white text-slate-900 px-6 py-15 ${className}`}>
       {/* ============ MOBILE — accordion original, intacto ============ */}
       <div className="lg:hidden max-w-md mx-auto flex flex-col gap-2">
         <div className="flex items-center gap-2 mb-3">
@@ -102,11 +103,13 @@ export default function FaqSection({ className = "" }: FaqSectionProps) {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: "-10%" }}
                 transition={{ duration: 0.4, delay: index * 0.08 }}
-                className="rounded-2xl overflow-hidden bg-[#1C3D7D] text-white"
+                className="relative rounded-2xl overflow-hidden bg-[#1C3D7D] text-white"
               >
+                <AnimatedParticles count={24} />
+
                 <button
                   onClick={() => toggleFaqDesktop(index)}
-                  className="w-full p-5 text-left text-base font-bold flex justify-between items-center transition-colors hover:bg-[#234b99]"
+                  className="relative z-10 w-full p-5 text-left text-base font-bold flex justify-between items-center transition-colors hover:bg-[#234b99]"
                 >
                   {item.question}
                   <ChevronDown
@@ -124,9 +127,9 @@ export default function FaqSection({ className = "" }: FaqSectionProps) {
                       animate={{ height: "auto", opacity: 1 }}
                       exit={{ height: 0, opacity: 0 }}
                       transition={{ duration: 0.25, ease: [0.22, 1, 0.36, 1] }}
-                      className="overflow-hidden"
+                      className="relative z-10 overflow-hidden"
                     >
-                      <div className="p-5 pt-0 text-sm text-slate-200 leading-relaxed border-t border-white/10 bg-[#1C3D7D]/90">
+                      <div className="p-5 pt-4 text-sm text-slate-200 leading-relaxed border-t border-white/10 bg-[#1C3D7D]/90">
                         {item.answer}
                       </div>
                     </motion.div>
