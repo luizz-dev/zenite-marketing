@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import { motion } from "framer-motion";
-import { ClipboardList, RefreshCw, Activity } from "lucide-react";
+import { User, PackagePlus, Activity } from "lucide-react";
 import { AssinaturaCarousel } from "@/components/Servicos/AssinaturaCarousel";
 import AnimatedParticles from "@/components/AnimatedParticles";
 import { SectionBackdrop } from "@/components/motion/SectionBackdrop";
@@ -48,15 +48,15 @@ const features = [
 const steps = [
   {
     n: 1,
-    title: "Cadastre seus produtos",
-    description: "Organize em categorias, variantes e unidades de medida personalizáveis.",
-    icon: ClipboardList,
+    title: "Assine um dos pacotes da Zênite",
+    description: "Crie sua conta na plataforma Zênite Estoque escolhendo o plano ideal para as necessidades do seu negócio.",
+    icon: User,
   },
   {
     n: 2,
-    title: "Registre movimentações",
-    description: "Entradas, saídas, transferências e ajustes. Cada operação documentada com rastreabilidade completa.",
-    icon: RefreshCw,
+    title: "Cadastre seus produtos e movimentações",
+    description: "Adicione seus itens ao catálogo, registre entradas e saídas e faça emissões fiscais rapidamente.",
+    icon: PackagePlus,
   },
   {
     n: 3,
@@ -87,14 +87,14 @@ export default function ServicosPage() {
         </section>
 
         {/* Bloco: Como funciona */}
-        <section className="my-8">
+        <section id="como-funciona-mobile" className="my-8">
           <div className="max-w-md mx-auto rounded-2xl bg-[#1B263B] px-6 py-8 text-white shadow-[0_0_8px_#000000]">
             <span className="text-xs font-semibold text-[#F57C00] underline decoration-[#F57C00] underline-offset-4">
               Como funciona
             </span>
 
             <h2 className="text-xl font-bold mt-2 leading-tight">
-              Sua operação na base <br />
+              Sua operação na base <br/>
               Seu controle no Zênite.
             </h2>
 
@@ -165,7 +165,7 @@ export default function ServicosPage() {
       {/* ============================================================ */}
       <div className="hidden lg:block relative overflow-hidden bg-[#0A1628]">
         <GlobalBackdrop />
-        <SectionSnap selectors={["#servicos-planos", "#como-funciona", "#servicos-por-que"]} />
+<SectionSnap selectors={["#como-funciona", "#servicos-por-que"]} />
 
         {/* Assinaturas — hero da página, full-screen com backdrop */}
         <section id="servicos-planos" className="relative z-10 min-h-screen flex flex-col items-center justify-center px-12 text-center overflow-hidden">
@@ -176,18 +176,16 @@ export default function ServicosPage() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5 }}
-            className="relative z-10 flex items-center justify-center gap-4 mb-2"
+            className="relative z-10 flex items-center justify-center gap-4 mb-10"
           >
-            <div className="h-[3px] w-16 bg-[#F57C00] rounded-full" />
+            <div className="h-[3px] w-[15vw] bg-[#F57C00] rounded-full" />
             <h1 className="text-4xl font-extrabold text-white tracking-tight">
               Assinaturas
             </h1>
-            <div className="h-[3px] w-16 bg-[#F57C00] rounded-full" />
+            <div className="h-[3px] w-[15vw] bg-[#F57C00] rounded-full" />
           </motion.div>
 
-          <p className="relative z-10 text-slate-400 mb-8 max-w-md">
-            Escolha o plano certo pro tamanho do seu negócio — sem taxas escondidas.
-          </p>
+
 
           <div className="relative z-10 w-full">
             <AssinaturaCarousel />
@@ -208,7 +206,8 @@ export default function ServicosPage() {
             </span>
 
             <h2 className="text-3xl font-bold mt-2 leading-tight max-w-lg">
-              Sua operação na base. Seu controle no Zênite.
+              Sua operação na base. <br />
+              Seu controle no Zênite.
             </h2>
 
             <div className="mt-12 grid grid-cols-3 gap-8">

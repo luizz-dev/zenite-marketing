@@ -28,9 +28,9 @@ const plans: Plan[] = [
     monthlyPrice: 79.9,
     features: [
       "Até 500 produtos diferentes",
-      "100 NFe reais por mês",
-      "Chatbot de atendimento",
-      "Dashboard customizado",
+      "100 NFe por mês",
+      "Contas fixas e variáveis",
+      "Dashboard Completo",
     ],
     buttonText: "Assinar plano Pro ↗",
     link: "#", // COLOQUE O LINK DO PLANO PRO AQUI
@@ -45,7 +45,7 @@ const plans: Plan[] = [
     monthlyPrice: 29.9,
     features: [
       "Até 50 produtos diferentes",
-      "1 NFe real por mês",
+      "1 NFe por mês",
       "20 NFe teste por mês",
       "Dashboard simplificado",
     ],
@@ -263,7 +263,7 @@ export function AssinaturaCarousel() {
           <BillingToggle billingCycle={billingCycle} setBillingCycle={setBillingCycle} />
         </div>
 
-        <div className="grid grid-cols-3 gap-0 w-full items-stretch">
+        <div className="grid grid-cols-3 gap-0 w-full items-stretch gap-7">
           {plans.map((plan, index) => {
             const isEdgeLeft = index === 0;
             const isCenter = index === 1;
@@ -279,9 +279,9 @@ export function AssinaturaCarousel() {
                 whileHover={{ y: -8 }}
                 style={{ background: "linear-gradient(180deg, #1B263B 0%, #193160 100%)" }}
                 className={`w-full shadow-[0_0px_7px_rgba(0,0,0,.5)] p-6 pt-0 text-white flex flex-col justify-between border border-white/10 overflow-hidden
-                  ${isCenter ? "min-h-[420px] scale-105 z-10 rounded-xl border-[#00BCD4]/40" : "min-h-[380px]"}
-                  ${isEdgeLeft ? "rounded-l-2xl rounded-r-none pr-2" : ""}
-                  ${isEdgeRight ? "rounded-r-2xl rounded-l-none pl-2" : ""}
+                  ${isCenter ? "min-h-[420px] scale-108 z-10 rounded-lg border-[#00BCD4]/40" : "min-h-[380px]"}
+                  ${isEdgeLeft ? "rounded-l-4xl rounded-r-none pr-2 scale-98" : ""}
+                  ${isEdgeRight ? "rounded-r-4xl rounded-l-none pl-2 scale-98" : ""}
                 `}
               >
               <div className="w-full flex justify-center mb-0">
@@ -292,7 +292,7 @@ export function AssinaturaCarousel() {
                     borderStyle: "solid",
                     borderColor: plan.badgeStyle.borderColor,
                   }}
-                  className="w-[75%] h-7 rounded-b-xl flex items-center justify-center shadow-sm"
+                  className="w-[80%] h-7 py-3.5 rounded-b-xl flex items-center justify-center shadow-sm"
                 >
                   <span className="text-xs font-medium text-white italic tracking-wide leading-none">
                     {plan.badge}
@@ -301,7 +301,7 @@ export function AssinaturaCarousel() {
               </div>
 
               <div className="text-center mt-2">
-                <h3 className="text-lg font-semibold tracking-wide flex items-center justify-center gap-2">
+                <h3 className="text-xl font-semibold tracking-wide flex items-center justify-center gap-2">
                   <span className="text-[#F57C00] font-bold">—</span>
                   {plan.title}
                   <span className="text-[#F57C00] font-bold">—</span>

@@ -8,7 +8,6 @@ import HomeDesktopServices from "@/components/Home/HomeDesktopServices";
 import HomeDesktopTestimonials from "@/components/Home/HomeDesktopTestimonials";
 import { IntroLoader } from "@/components/IntroLoader";
 import { GlobalBackdrop } from "@/components/motion/GlobalBackdrop";
-import { SectionSnap } from "@/components/motion/SectionSnap";
 
 const testimonials = [
   {
@@ -82,12 +81,12 @@ export default function Home() {
           </p>
 
           <div className="flex w-full items-center gap-3 pt-2">
-            <Button href="/cadastro" variant="textured" className="flex-1">
+            <Button href="/servicos" variant="textured" className="flex-1">
                Começar agora
             </Button>
 
             <Link
-              href="#como-funciona"
+              href="/servicos#como-funciona-mobile"
               className="flex flex-1 items-center justify-center gap-1 rounded-xl border border-slate-300 px-4 py-2.5 text-sm font-semibold text-slate-800 transition-colors hover:bg-slate-50"
             >
               Como funciona <span className="text-lg ">→</span>
@@ -144,7 +143,6 @@ export default function Home() {
       {/* ============================================================ */}
       <div className="hidden lg:block relative bg-[#0A1628]">
         <GlobalBackdrop />
-        <SectionSnap selectors={["#home-hero", "#home-servicos", "#home-avaliacoes"]} />
         <div className="relative z-10">
           <HomeDesktopHero />
           <HomeDesktopServices />
